@@ -9,9 +9,20 @@ This repository contains my personal practice code and hardware implementations 
 
 ## Learning Log
 
-### 01_Basic
-In this module, I explored the foundational concepts of C programming, focusing heavily on how the compiler interacts with system memory at a low level:
+<details>
+  <summary><strong>01_Basic: Types, Overflow, and ASCII</strong></summary>
+  
+  In this module, I explored the foundational concepts of C programming, focusing heavily on how the compiler interacts with system memory at a low level:
+  * **Signed vs. Unsigned & Overflow:** Investigated the memory boundaries of primitive data types. Demonstrated how exceeding maximum limits causes overflow and underflow.
+  * **ASCII & Data Representation:** Verified that characters (`char`) are fundamentally stored as integers in memory and manipulated them via math operations.
+  * **Macros (`#define`):** Practiced using `#define` to establish system-wide constants.
+</details>
 
-* **Signed vs. Unsigned & Overflow:** Investigated the memory boundaries of primitive data types (e.g., `int8_t`, `uint16_t`). Demonstrated how exceeding maximum limits causes overflow (circular memory behavior) and how negative inputs behave under unsigned conditions (underflow).
-* **ASCII & Data Representation:** Verified that characters (`char`) are fundamentally stored as integers in memory. Successfully manipulated these underlying integer values (e.g., adding 32) to perform uppercase-to-lowercase conversions.
-* **Macros (`#define`):** Practiced using `#define` to establish system-wide constants, making the codebase more readable, maintainable, and easier to modify in the future.
+<details>
+  <summary><strong>02_Function: Prototypes, Pass-by-Value, and State Machines</strong></summary>
+  
+  This module focused on function architecture and memory scoping:
+  * **Function Prototypes:** Demonstrated why declaring functions before calling them is strictly required.
+  * **Pass by Value vs. Pointers:** Proved that C passes variables by value (copying them) by default. Successfully implemented pointers (`&` and `*`) to bypass this limitation and modify memory by reference.
+  * **Mutually Recursive FSM:** Built a simulated Hardware State Machine to prove that function prototypes are unavoidable when two functions call each other.
+</details>
