@@ -7,7 +7,17 @@ This repository contains my personal practice code and hardware implementations 
 
 ---
 
-## Learning Log
+## 📑 Table of Contents
+* [C Programming](#1-c-programming)
+* [Embedded Systems](#2-embedded-systems) *(Coming Soon)*
+* [Architecture](#3-architecture) *(Coming Soon)*
+* [Microarchitecture](#4-microarchitecture) *(Coming Soon)*
+
+---
+
+## 1. C Programming
+
+This section contains foundational C programming concepts, focusing on low-level memory interactions and hardware control. All source codes are located in the `C_Programming` directory.
 
 <details>
   <summary><strong>01_Basic: Types, Overflow, and ASCII</strong></summary>
@@ -62,3 +72,27 @@ This repository contains my personal practice code and hardware implementations 
   * **The Truth About Strings:** Demonstrated that strings do not exist as a native type in C; they are simply arrays of characters ending with a Null Terminator (`\0`). 
   * **Null Terminator Mechanics:** Used `sizeof()` to prove the compiler automatically appends `\0` to string literals. Successfully truncated a string mid-way by manually inserting a `\0` character.
 </details>
+
+<details>
+  <summary><strong>07_Structures: Custom Data Types and Typedef</strong></summary>
+  
+  This module focused on grouping mixed data types into cohesive units, a crucial skill for hardware data management:
+  * **Struct Basics:** Defined custom structures (`struct`) to represent complex entities (e.g., a sensor node with an ID, temperature, and status). Practiced member initialization and access using the dot (`.`) operator.
+  * **The String Assignment Trap:** Demonstrated that character arrays within structures cannot be directly reassigned using the `=` operator; utilized `strcpy()` from `<string.h>` as the correct approach.
+  * **Typedef Aliasing:** Applied the `typedef` keyword to create clean, simplified aliases for structures. This eliminated the need for repetitive `struct` keyword usage, aligning the code with professional industry standards (e.g., `MotorController`).
+</details>
+
+---
+
+## 2. Embedded Systems
+*This section is currently under construction. It will contain hardware interfacing and bare-metal programming examples.*
+
+---
+
+## 3. Architecture
+*This section is currently under construction. It will cover instruction set architectures (ISA) and assembly language integration.*
+
+---
+
+## 4. Microarchitecture
+*This section is currently under construction. It will feature datapath designs, control units, and pipelining implementations.*
