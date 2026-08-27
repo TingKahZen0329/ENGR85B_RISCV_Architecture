@@ -102,6 +102,24 @@ This section contains foundational C programming concepts, focusing on low-level
   * **Advanced Pointers:** Successfully implemented double pointers (`**`) to store pointer addresses, and function pointers to pass executable code blocks as variables.
 </details>
 
+<details>
+  <summary><strong>10_Memory_Odds_And_Ends: Endianness, Padding, and Multi-D Arrays</strong></summary>
+  
+  This module covered advanced memory layout concepts critical for hardware-level programming:
+  * **Endianness:** Inspected raw memory bytes to determine the system's byte order (Little-Endian architecture).
+  * **Struct Padding:** Demonstrated how compilers inject invisible padding bytes to satisfy hardware alignment rules, proving that member declaration order heavily impacts total memory footprint.
+  * **Multidimensional Arrays:** Verified that 2D and 3D arrays are fundamentally flattened into strictly contiguous 1D memory blocks, varying the last dimension fastest (Row-Major Order).
+</details>
+
+<details>
+  <summary><strong>11_Dynamic_Memory: Heap Allocation and Matrix Simulation</strong></summary>
+  
+  This module shifted focus from the Stack to the OS Heap for runtime memory management:
+  * **Malloc and Free:** Utilized `<stdlib.h>` functions to dynamically request memory blocks and strictly return them using `free()` to prevent memory leaks.
+  * **Pointer Casting & Safety:** Practiced casting the generic `void*` returned by `malloc` into specific types (e.g., `double*`) and checking for `NULL` allocation failures.
+  * **Variable Dimension Matrices:** Successfully simulated a 2D matrix using a dynamically allocated 1D array by calculating indices manually with the formula $j + i \times n$.
+</details>
+
 ---
 
 ## 2. Embedded Systems
