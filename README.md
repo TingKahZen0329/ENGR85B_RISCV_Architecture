@@ -53,3 +53,12 @@ This repository contains my personal practice code and hardware implementations 
   * **Do-While Loop:** Proved that the block executes at least once before checking the condition, a pattern frequently used for polling hardware sensors.
   * **For Loop:** Utilized block-scoped variables to execute a sequence a predetermined number of times (e.g., simulating LED blinks).
 </details>
+
+<details>
+  <summary><strong>06_Arrays_and_Strings: Memory Blocks and Null Terminators</strong></summary>
+  
+  This module explored how C handles contiguous memory blocks and character sequences:
+  * **Numeric Arrays & Out-of-Bounds:** Declared, initialized, and iterated through 1D arrays. Verified that C prioritizes performance over safety by intentionally accessing out-of-bounds indices, which yields memory "garbage values" instead of crashing.
+  * **The Truth About Strings:** Demonstrated that strings do not exist as a native type in C; they are simply arrays of characters ending with a Null Terminator (`\0`). 
+  * **Null Terminator Mechanics:** Used `sizeof()` to prove the compiler automatically appends `\0` to string literals. Successfully truncated a string mid-way by manually inserting a `\0` character.
+</details>
