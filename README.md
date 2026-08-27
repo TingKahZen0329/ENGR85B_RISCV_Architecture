@@ -36,3 +36,20 @@ This repository contains my personal practice code and hardware implementations 
   * **Shift & Binary Literals:** Used binary literals (`0b`) and bitwise shift operators (`<<`, `>>`) to simulate hardware register manipulation and efficient math multiplication/division.
   * **Ternary & Assignment:** Implemented ternary operators (`? :`) for compact conditional logic and tested all compound assignment operators (e.g., `<<=`, `&=`, `%=`).
 </details>
+
+<details>
+  <summary><strong>04_Control_Flow: Conditionals and Switch Statements</strong></summary>
+  
+  This module covers decision-making structures in C, essential for routing program execution:
+  * **If/Else Logic:** Implemented `if`, `else if`, and `else` statements to handle multiple condition branches (e.g., simulating temperature warnings and battery modes).
+  * **Switch Statement:** Built a state machine simulator using `switch` cases. Explored the critical "fall-through" trap that occurs when the `break` keyword is omitted.
+</details>
+
+<details>
+  <summary><strong>05_Loops: Iteration and Hardware Polling</strong></summary>
+  
+  This module separated the three primary loop structures used for repetitive execution:
+  * **While Loop:** Practiced pre-condition checking. Intentionally triggered and escaped an infinite loop by disabling the update condition.
+  * **Do-While Loop:** Proved that the block executes at least once before checking the condition, a pattern frequently used for polling hardware sensors.
+  * **For Loop:** Utilized block-scoped variables to execute a sequence a predetermined number of times (e.g., simulating LED blinks).
+</details>
