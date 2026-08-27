@@ -33,7 +33,7 @@ int main(void) {
     // ---------------------------------------------------------
     printf("\n=== The Out-of-Bounds Trap ===\n");
     // C does NOT check if your index is valid! It just accesses the memory directly.
-    // The valid indices are 0 to 4. What happens if we access index 5?
+    // The valid indices are 0 to 4. What happens if we access index 5
     printf("Reading sensor_data[5] (out of bounds): %d\n", sensor_data[5]);
     printf("Note: This prints a 'garbage value' from adjacent memory!\n");
 

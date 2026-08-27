@@ -37,7 +37,7 @@ int main(void) {
     sensor2.temperature = 42.8;
     sensor2.is_active = false;
     
-    // WARNING: In C, you CANNOT assign a string to an array directly like this:
+    // WARNING: In C,  CANNOT assign a string to an array directly like this:
     // sensor2.location = "CPU Fan"; // This will cause a compiler error!
     // Instead, we must use strcpy() from <string.h> to copy the string.
     strcpy(sensor2.location, "CPU Fan");

@@ -82,6 +82,26 @@ This section contains foundational C programming concepts, focusing on low-level
   * **Typedef Aliasing:** Applied the `typedef` keyword to create clean, simplified aliases for structures. This eliminated the need for repetitive `struct` keyword usage, aligning the code with professional industry standards (e.g., `MotorController`).
 </details>
 
+<details>
+  <summary><strong>08_Memory: Addresses, Stack, and Alignment</strong></summary>
+  
+  This module explored the physical reality of how variables are stored in the system's memory:
+  * **Memory Addresses:** Utilized the address-of operator (`&`) and the `%p` format specifier (casting to `void*`) to reveal the physical hexadecimal addresses of variables.
+  * **Stack Behavior & Contiguous Memory:** Verified that arrays are stored in contiguous memory blocks. Observed how local variables are sequentially placed in the Stack, growing from high to low memory addresses.
+  * **Memory Padding:** Identified compiler-injected memory padding (wasted bytes) introduced to satisfy hardware alignment requirements, demonstrating the importance of struct/variable declaration order.
+</details>
+
+<details>
+  <summary><strong>09_Pointers: Direct Memory Manipulation</strong></summary>
+  
+  This module tackled the core of C's power: pointers and direct memory access.
+  * **Pointer Basics:** Mastered the use of pointers to store memory addresses and the dereference operator (`*`) to read or modify values remotely.
+  * **Pointer Arithmetic & Arrays:** Proved that arrays do not exist as a native type; they are simply a base pointer to a contiguous block. Demonstrated that adding to a pointer scales automatically by the data type's size.
+  * **Struct Pointers:** Used the arrow operator (`->`) as the industry-standard method for accessing structure members via pointers, essential for hardware register manipulation.
+  * **Pass-by-Reference:** Bypassed C's default pass-by-value limitation by passing pointers into functions, allowing local modifications to reflect globally.
+  * **Advanced Pointers:** Successfully implemented double pointers (`**`) to store pointer addresses, and function pointers to pass executable code blocks as variables.
+</details>
+
 ---
 
 ## 2. Embedded Systems
