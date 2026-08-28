@@ -17,7 +17,7 @@ This repository contains my personal practice code and hardware implementations 
 
 ## 1. C Programming
 
-This section contains foundational C programming concepts, focusing on low-level memory interactions and hardware control. All source codes are located in the `C_Programming` directory.
+This section contains foundational C programming concepts, focusing on low-level memory interactions and hardware control. All source codes are located in the `01_C_Programming` directory.
 
 <details>
   <summary><strong>01_Basic: Types, Overflow, and ASCII</strong></summary>
@@ -123,7 +123,35 @@ This section contains foundational C programming concepts, focusing on low-level
 ---
 
 ## 2. Embedded Systems
-*This section is currently under construction. It will contain hardware interfacing and bare-metal programming examples.*
+
+This section bridges the gap between low-level software and physical hardware. The projects below are implemented on the **Adafruit ESP32-C6 Feather**, showcasing practical hardware interfacing and modern microcontroller capabilities. All source codes are located in the `02_Embedded_Systems` directory.
+
+<details>
+  <summary><strong>01_I2C_Scanner: Hardware Interfacing and Verification</strong></summary>
+  
+  As the foundational first step in hardware development, this program verifies the physical communication link between the ESP32-C6 (Microcontroller) and the LIS3DH Accelerometer (Peripheral Sensor).
+  * **Hardware Wiring:** Established the I2C bus connection using four standard lines: Power (3V), Ground (GND), Data (SDA), and Clock (SCL).
+  * **Bus Scanning:** Programmed the ESP32-C6 to continuously scan the entire 7-bit I2C address space (1 to 127) to confirm that the sensor is properly wired, powered, and responsive.
+  * **Address Identification:** Successfully detected the LIS3DH sensor at address `0x18` and an on-board battery monitor at `0x36`, proving the hardware communication protocol is functional and ready for data extraction.
+</details>
+
+<details>
+  <summary><strong>02_LIS3DH_Accelerometer: Sensor Initialization and Data Extraction</strong></summary>
+  
+  This project advances beyond basic I2C scanning to actual device configuration and data retrieval, extracting 16-bit X, Y, and Z-axis acceleration data from the MEMS sensor.
+  * **Register Configuration:** Communicated via I2C to write specific command bytes to the sensor's control registers (e.g., `CTRL_REG1` at `0x20`), waking the device from sleep mode and configuring the data sampling rate.
+  * **Bitwise Data Assembly:** Overcame the 8-bit transmission limit of the I2C protocol by reading separated Low and High bytes, then reconstructing the original 16-bit signed integers using bitwise left-shifts (`<< 8`) and OR (`|`) operations.
+  * **Physical-to-Digital Verification:** Successfully validated the sensor's functionality by observing the 1G gravitational pull on the Z-axis while resting, connecting physical MEMS mechanics to digital data arrays.
+</details>
+
+<details>
+  <summary><strong>03_BareMetal_GPIO: Direct Memory-Mapped I/O Control</strong></summary>
+  
+  This project completely bypasses standard high-level APIs (like Arduino's `digitalWrite`) to control hardware directly using pure C pointers, demonstrating a deep understanding of microcontroller memory architecture.
+  * **Pointer Manipulation:** Cast absolute physical memory addresses from the ESP32-C6 Technical Reference Manual to `volatile uint32_t*` pointers, strictly preventing compiler optimizations on hardware registers.
+  * **W1TS / W1TC Architecture:** Utilized the modern SoC design pattern of isolated "Write-1-To-Set" and "Write-1-To-Clear" registers, eliminating race conditions without relying on traditional Read-Modify-Write (`|=`, `&= ~`) operations.
+  * **Targeted Bit Masking:** Generated dynamic bit masks (e.g., `1 << LED_PIN`) to send precise pulse triggers to hardware gates, toggling specific GPIO pins without disturbing the state of neighboring pins.
+</details>
 
 ---
 
