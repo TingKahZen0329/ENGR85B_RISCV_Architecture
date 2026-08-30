@@ -153,6 +153,41 @@ This section bridges the gap between low-level software and physical hardware. T
   * **Targeted Bit Masking:** Generated dynamic bit masks (e.g., `1 << LED_PIN`) to send precise pulse triggers to hardware gates, toggling specific GPIO pins without disturbing the state of neighboring pins.
 </details>
 
+<details>
+<summary><strong>04_EasyESP32: Custom Hardware Abstraction Layer (HAL)</strong></summary>
+
+Transitioning away from the standard Arduino API to build a reusable, custom Hardware Abstraction Layer (HAL) specifically tailored for the ESP32-C6 RISC-V architecture.
+* **Register Encapsulation:** Structured the memory-mapped GPIO registers into a highly readable C `struct`, allowing for intuitive direct memory access without the overhead of standard libraries.
+* **Hardware Timer Integration:** Bypassed software-based delay functions by establishing direct pointers to the RISC-V CLINT timer registers (`MTIME` and `MTIMECTL`).
+* **Modular Foundation:** Created a unified header file (`EasyESP32.h`) that serves as the bare-metal foundation for all subsequent hardware interfacing projects.
+</details>
+
+<details>
+<summary><strong>05_Debug_Timer: 160MHz RISC-V System Timer Calibration</strong></summary>
+
+Validating and debugging the internal RISC-V machine timer to ensure microsecond-level accuracy for hardware operations.
+* **64-bit Register Access:** Handled the reading of the volatile 64-bit `MTIME` counter to track precise system ticks.
+* **Clock Source Calibration:** Calibrated the custom delay loop against the ESP32-C6's internal 160MHz CPU clock, calculating the exact target timestamp (160,000 ticks per millisecond) to achieve flawless, non-blocking hardware delays.
+</details>
+
+<details>
+<summary><strong>06_Morse_Code: Applied Bare-Metal Timing and GPIO</strong></summary>
+
+A practical application to stress-test the newly developed `EasyESP32` HAL, utilizing precise hardware delays and direct GPIO manipulation.
+* **Timing-Critical Execution:** Translated string data into precise physical timing sequences (dots and dashes) based on standard Morse code timing rules.
+* **Driver Validation:** Confirmed the absolute stability of the custom memory-mapped GPIO driver and the 160MHz hardware timer in a continuous, rapid-switching execution loop.
+</details>
+
+<details>
+<summary><strong>07_SPI: 100% Bare-Metal SPI Controller & IO MUX Routing</strong></summary>
+
+The most complex undertaking to date: engineering a complete, bare-metal SPI driver from scratch. This required adapting fundamental SPI concepts (originally studied via the Harvey Mudd ENGR85B curriculum for the SiFive FE310) to the radically different and highly complex ESP32-C6 architecture.
+* **IO MUX (Pad Controller) Unlocking:** Decoded and bypassed standard APIs to manually unlock the physical metal pads by writing specific control hex values (e.g., `0x1A02`) directly to the IO MUX registers, overcoming critical hardware-level signal blockages.
+* **Internal GPIO Matrix Routing:** Manipulated the ESP32-C6's internal signal router to map SPI state machine signals (`FSPICLK_OUT_IDX`, `FSPID_IN_IDX`, etc.) to arbitrary external pins, bypassing default hardware constraints.
+* **State Machine & DMA Bypass:** Configured the official `spi_dev_t` structure to initialize the SPI Master engine, configured proper clock dividers for 1MHz transmission, and explicitly reset DMA FIFO buffers to prevent hardware stalls.
+* **Register-Level Data Transfer:** Successfully implemented SPI transaction logic by pushing bytes directly into the `W0` hardware buffer (`data_buf[0]`) and triggering the `CMD_USR` execution bit, ultimately establishing flawless communication with the LIS3DH sensor without any external library dependencies.
+</details>
+
 ---
 
 ## 3. Architecture
