@@ -9,7 +9,7 @@ This repository contains my personal practice code and hardware implementations 
 
 ## 📑 Table of Contents
 * [C Programming](#1-c-programming)
-* [Embedded Systems](#2-embedded-systems) *(Coming Soon)*
+* [Embedded Systems](#2-embedded-systems)
 * [Architecture](#3-architecture) *(Coming Soon)*
 * [Microarchitecture](#4-microarchitecture) *(Coming Soon)*
 
@@ -186,6 +186,16 @@ The most complex undertaking to date: engineering a complete, bare-metal SPI dri
 * **Internal GPIO Matrix Routing:** Manipulated the ESP32-C6's internal signal router to map SPI state machine signals (`FSPICLK_OUT_IDX`, `FSPID_IN_IDX`, etc.) to arbitrary external pins, bypassing default hardware constraints.
 * **State Machine & DMA Bypass:** Configured the official `spi_dev_t` structure to initialize the SPI Master engine, configured proper clock dividers for 1MHz transmission, and explicitly reset DMA FIFO buffers to prevent hardware stalls.
 * **Register-Level Data Transfer:** Successfully implemented SPI transaction logic by pushing bytes directly into the `W0` hardware buffer (`data_buf[0]`) and triggering the `CMD_USR` execution bit, ultimately establishing flawless communication with the LIS3DH sensor without any external library dependencies.
+</details>
+
+<details>
+<summary><strong>08_SPI_Accelerometer: Bare-Metal SPI Data Acquisition</strong></summary>
+
+This project serves as the ultimate validation of the custom ESP32-C6 bare-metal ecosystem, successfully porting an accelerometer interface from a SiFive FE310 architecture to the ESP32-C6 without any external libraries.
+* **16-bit SPI Protocol Implementation:** Engineered read and write functions conforming to the LIS3DH 16-bit transaction requirement[cite: 1]. Handled the MSB (RWbar) manipulation to precisely control read (1) and write (0) operations across the SPI bus[cite: 1].
+* **Sensor Initialization:** Transmitted configuration bytes to control registers (CTRL_REG1 and CTRL_REG4) via the custom SPI driver to awaken the sensor, enable all three axes, and configure high-resolution block data updates[cite: 1].
+* **Bitwise Data Reconstruction:** Retrieved separated 8-bit low and high byte data from the sensor's internal registers[cite: 1]. Reconstructed the original 16-bit two's complement acceleration values using bitwise left-shift (`<< 8`) and bitwise OR (`|`) operations[cite: 1].
+* **System Integration:** Flawlessly integrated the custom GPIO matrix routing, 160MHz hardware timer, and SPI state machine into a cohesive, non-blocking data acquisition loop.
 </details>
 
 ---
