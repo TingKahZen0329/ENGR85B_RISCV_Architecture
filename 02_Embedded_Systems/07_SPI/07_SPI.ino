@@ -1,3 +1,12 @@
+/*
+  File: 07_SPI.ino
+  Author: Ting Kah Zen
+  Date: 2026-08-31
+  Description: Pure bare-metal SPI initialization and communication test. 
+               Verifies the custom SPI hardware abstraction layer by successfully 
+               reading the LIS3DH WHO_AM_I register.
+*/
+
 #include "../04_EasyESP32/EasyESP32.h"  // Include custom GPIO and Timer HAL
 #include "EasyESP32_SPI.h"              // Include custom SPI HAL
 

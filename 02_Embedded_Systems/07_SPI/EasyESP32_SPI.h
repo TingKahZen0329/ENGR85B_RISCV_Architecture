@@ -1,3 +1,12 @@
+/*
+  File: EasyESP32_SPI.h
+  Author: Ting Kah Zen
+  Date: 2026-08-31
+  Description: Custom Hardware Abstraction Layer (HAL) for ESP32-C6 SPI controller. 
+               Configures IO MUX routing, SPI matrix, and handles direct register-level 
+               data transmission, bypassing standard API overhead.
+*/
+
 #ifndef EASY_ESP32_SPI_H
 #define EASY_ESP32_SPI_H
 

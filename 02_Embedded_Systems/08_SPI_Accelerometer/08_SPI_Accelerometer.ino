@@ -1,3 +1,12 @@
+/*
+  File: 08_SPI_Accelerometer.ino
+  Author: Ting Kah Zen
+  Date: 2026-08-31
+  Description: Bare-metal SPI data acquisition from the LIS3DH accelerometer. 
+               Implements 16-bit register reads/writes and reconstructs two's 
+               complement acceleration data without external libraries.
+*/
+
 #include "../04_EasyESP32/EasyESP32.h"  // Include custom GPIO and Timer HAL
 #include "../07_SPI/EasyESP32_SPI.h"    // Include custom SPI HAL
 

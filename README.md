@@ -198,6 +198,25 @@ This project serves as the ultimate validation of the custom ESP32-C6 bare-metal
 * **System Integration:** Flawlessly integrated the custom GPIO matrix routing, 160MHz hardware timer, and SPI state machine into a cohesive, non-blocking data acquisition loop.
 </details>
 
+<details>
+  <summary><strong>09_MAX7219_Matrix: Hardware Verification and Display Test</strong></summary>
+
+  This project serves as a straightforward hardware test to verify the functionality of the MAX7219 8x8 LED matrix before integrating it into a more complex system.
+  * **Hardware Verification:** Implemented basic SPI transmission logic to ensure the MAX7219 matrix powers on, receives data correctly without noise, and physical LEDs are functioning.
+  * **Register Configuration:** Directly configured essential internal registers (`MAX_DECODE`, `MAX_SCAN`, `MAX_INTENSITY`) to exit test mode, disable BCD decoding, and control matrix brightness.
+</details>
+
+<details>
+  <summary><strong>10_BareMetal_Digital_Level: Dual-SPI Bus Integration (Course Lab 8 Equivalent)</strong></summary>
+
+  *Note: This project corresponds to "Lab 8: Digital Level" from the ENGR85B coursework, completely re-engineered and implemented on the ESP32-C6 architecture.*
+
+  The capstone project integrating both the LIS3DH and MAX7219 on a single shared SPI bus to create a functional digital level.
+  * **Shared Bus Architecture:** Successfully paralleled the SCK, MOSI, and MISO lines across two distinct peripheral devices operating at different logic levels (3.3V vs 5V).
+  * **Independent Chip Select (CS) Logic:** Implemented precise GPIO toggling to selectively target devices, preventing bus collisions during rapid sequential read/write operations.
+  * **Coordinate Mapping:** Translated raw physical gravitational data (-8000 to 8000) into constrained 2D grid coordinates (0 to 7) using math mapping functions, rendering real-time physics data onto the LED matrix.
+</details>
+
 ---
 
 ## 3. Architecture
