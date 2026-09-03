@@ -250,6 +250,14 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Large Immediate Construction:** Utilized `lui` (Load Upper Immediate) to construct upper 20-bit aligned base addresses (`0x10010000`) and observed memory manipulation directly via the RARS Data Segment viewer.
 </details>
 
+<details>
+  <summary><strong>04_Generating_Constants: 32-Bit Constant Synthesis and Sign-Extension Compensation</strong></summary>
+
+  Demonstrates how to manually construct arbitrary 32-bit constants using minimal instruction sequences while accounting for hardware sign-extension side effects.
+  * **Instruction Constraints:** Handled the 12-bit signed immediate limit ($-2048$ to $+2047$) of `addi` and the 20-bit upper immediate placement of `lui`[cite: 1].
+  * **Sign-Extension Hazard:** Analyzed how negative sign-extension corrupts upper bits when bit 11 of the target lower 12 bits is 1 (e.g., `0x912` sign-extends to `0xFFFFF912`, effectively acting as $-1774$).
+  * **Pre-compensation Technique:** Applied the $+1$ offset rule to the upper 20 bits (`0x00ABC + 1 = 0x00ABD`) within `lui` to cancel out negative borrow, successfully synthesizing the full 32-bit value `0x00ABC912` inside register `s0`.
+</details>
 ---
 
 ## 4. Microarchitecture
