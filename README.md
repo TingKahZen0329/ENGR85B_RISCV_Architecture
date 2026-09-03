@@ -258,6 +258,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Sign-Extension Hazard:** Analyzed how negative sign-extension corrupts upper bits when bit 11 of the target lower 12 bits is 1 (e.g., `0x912` sign-extends to `0xFFFFF912`, effectively acting as $-1774$).
   * **Pre-compensation Technique:** Applied the $+1$ offset rule to the upper 20 bits (`0x00ABC + 1 = 0x00ABD`) within `lui` to cancel out negative borrow, successfully synthesizing the full 32-bit value `0x00ABC912` inside register `s0`.
 </details>
+
+<details>
+  <summary><strong>05_Logical_And_Shift: Bitwise Logic and Shift Operations (R-Type vs I-Type)</strong></summary>
+
+  Explores bitwise manipulation and shift arithmetic in RISC-V across both Register (R-type) and Immediate (I-type) instruction encodings.
+  * **Bitwise Logic:** Implemented bit masking with `and`/`andi`, bit field merging with `or`/`ori`, and bit toggling/inverting with `xor`/`xori`[cite: 2].
+  * **Logical vs. Arithmetic Shifts:** Evaluated zero-filling behavior in logical shifts (`sll`/`slli`, `srl`/`srli`) versus sign-bit preservation in arithmetic right shifts (`sra`/`srai`)[cite: 2].
+  * **Power-of-Two Arithmetic:** Demonstrated arithmetic multiplication by $2^n$ via `slli` and signed division preserving two's-complement negatives via `srai`[cite: 2].
+  * **Instruction Encoding Rules:** Analyzed hardware field trade-offs between 3-register R-type formatting and 12-bit signed immediate I-type formatting[cite: 1, 2].
+</details>
 ---
 
 ## 4. Microarchitecture
