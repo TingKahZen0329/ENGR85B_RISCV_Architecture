@@ -220,7 +220,35 @@ This project serves as the ultimate validation of the custom ESP32-C6 bare-metal
 ---
 
 ## 3. Architecture
-*This section is currently under construction. It will cover instruction set architectures (ISA) and assembly language integration.*
+
+This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[cite: 1]. It explores low-level assembly programming, register usage conventions, arithmetic logic, and memory hierarchy operations using the RARS (RISC-V Assembler and Runtime Simulator). All source files are located in the `03_Architecture` directory.
+
+<details>
+  <summary><strong>01_Instruction: Basic Instruction Execution and Registers</strong></summary>
+
+  Explores fundamental RISC-V assembly instructions and the underlying 32-register architectural state[cite: 1].
+  * **Register Architecture:** Introduced standard register naming conventions and roles, including zero (`x0`), temporary registers (`t0`-`t6`), and saved registers (`s0`-`s11`).
+  * **Basic Arithmetic Operations:** Implemented foundational arithmetic instructions such as `add` and `sub` for register-to-register data computation[cite: 1].
+  * **Execution Flow:** Verified instruction sequencing and register value updates inside the RARS simulation environment.
+</details>
+
+<details>
+  <summary><strong>02_Operand: Immediate Operands and Register Arithmetic</strong></summary>
+
+  Covers instruction formatting constraints and the integration of immediate constants for arithmetic manipulation[cite: 1].
+  * **Immediate Arithmetic:** Implemented `addi` to handle sign-extended constant addition and subtraction without allocating extra registers[cite: 1].
+  * **I-Type Instruction Mechanics:** Examined the 12-bit signed immediate limit ($-2048$ to $+2047$) and simulated multi-step arithmetic using pseudo-instructions like `li`[cite: 1].
+  * **Environment Control:** Utilized system calls (`ecall` with service code `10`) for controlled and graceful program termination.
+</details>
+
+<details>
+  <summary><strong>03_Memory_Operand: Byte-Addressable Memory, Load, and Store</strong></summary>
+
+  Demonstrates the interaction between the CPU register file and memory using the standard byte-addressable model.
+  * **Byte-Addressable Memory Access:** Applied word-to-byte address translation rules ($4\text{ bytes per word}$, resulting in step increments of $+4$).
+  * **Load and Store Operations:** Executed `lw` (Load Word) and `sw` (Store Word) with base-offset addressing (`offset(base)`) to exchange data between registers and data segments.
+  * **Large Immediate Construction:** Utilized `lui` (Load Upper Immediate) to construct upper 20-bit aligned base addresses (`0x10010000`) and observed memory manipulation directly via the RARS Data Segment viewer.
+</details>
 
 ---
 
