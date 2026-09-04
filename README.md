@@ -268,6 +268,17 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Power-of-Two Arithmetic:** Demonstrated arithmetic multiplication by $2^n$ via `slli` and signed division preserving two's-complement negatives via `srai`[cite: 2].
   * **Instruction Encoding Rules:** Analyzed hardware field trade-offs between 3-register R-type formatting and 12-bit signed immediate I-type formatting[cite: 1, 2].
 </details>
+
+<details>
+  <summary><strong>06_Multiplication_And_Devision: Integer Multiplication, Division, and Remainder (M Extension)</strong></summary>
+
+  Explores signed 32-bit arithmetic operations involving full 64-bit product generation, division quotient, and modulo remainder extraction using R-type instructions.
+  * **64-bit Multiplication Separation:** Utilized `mul` to capture the lower 32 bits and `mulh` to extract the signed upper 32 bits of a 64-bit product (`{s1, s0} = t0 * t1`)[cite: 2].
+  * **Quotient Extraction:** Implemented signed division with `div` truncating towards zero (`85 / 6 = 14`, stored as `0x0000000E`)[cite: 2].
+  * **Modulo Remainder:** Computed integer remainder via `rem` (`85 % 6 = 1`), preserving dividend sign conventions[cite: 2].
+  * **Format Consistency:** Verified that all hardware multiplication and division operations conform to 3-register R-type instruction encodings[cite: 1, 2].
+</details>
+
 ---
 
 ## 4. Microarchitecture
