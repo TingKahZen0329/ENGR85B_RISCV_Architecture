@@ -279,6 +279,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Format Consistency:** Verified that all hardware multiplication and division operations conform to 3-register R-type instruction encodings[cite: 1, 2].
 </details>
 
+<details>
+  <summary><strong>07_Branches_And_Jumps: Conditional Branching, Unconditional Jumps, and Loops</strong></summary>
+
+  Demonstrates program control flow alteration using conditional branches, unconditional jumps, and loop constructs.
+  * **Equality Testing:** Implemented conditional decision making using `beq` and `bne` with label-directed control flow.
+  * **Relational Branching:** Applied signed relational operators `blt` and `bge` to evaluate positive and two's-complement negative quantities.
+  * **Fall-Through Control:** Utilized unconditional jumps (`j`) to bypass alternative branches and prevent sequential instruction fall-through.
+  * **Iterative Loop Design:** Constructed an accumulation loop (`1 + 2 + ... + 5 = 15`) managed by counter increments and dynamic conditional branch boundaries.
+</details>
+
 ---
 
 ## 4. Microarchitecture
