@@ -329,6 +329,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Algebraic Evaluation Pipeline:** Evaluated $F(a, b) = (a + 1)^2 + (b - 2)^2$ through modular argument passing, intermediate caller-saved preservation, and algebraic accumulation[cite: 1].
 </details>
 
+<details>
+  <summary><strong>12_Recursive_Function: Recursive Function Calls, Dynamic Stack Unwinding, and Register Protection</strong></summary>
+
+  Demonstrates the implementation of self-referential subroutines and multi-level activation record management using the RISC-V Calling Convention.
+  * **Two-Pass Recursive Architecture:** Applied the systematic design methodology by establishing core control branches before reinforcing register persistence via the stack[cite: 1].
+  * **Volatile Argument Preservation:** Protected recursive input parameters (`a0`) across descending calls using stack frames, retrieving values into temporary registers (`t1`) upon return to avoid clobbering sub-routine return values[cite: 1].
+  * **Link Register Continuity:** Ensured recursion unwinding path integrity by saving and restoring the return address pointer (`ra`) at every recursive depth level[cite: 1].
+  * **Triangular Summation Implementation:** Computed the recursive sum $S(n) = n + S(n - 1)$ down to the base condition ($n \le 1$) with zero stack leakage upon final caller resumption.
+</details>
+
 ---
 
 ## 4. Microarchitecture
