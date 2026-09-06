@@ -299,6 +299,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **For Loops with Boundary Comparison:** Constructed entry-checked iterative loops using `slt` (Set if Less Than) and zero-comparison branching (`beq t1, zero, done`) to compute geometric power-of-two series[cite: 3].
 </details>
 
+<details>
+  <summary><strong>09_Arrays: Memory Addressing, Word/Byte Access, and String Traversal</strong></summary>
+
+  Demonstrates memory array indexing, data alignment, dynamic address calculation, and character string manipulation in RISC-V assembly.
+  * **Dynamic Word Address Calculation:** Computed array element memory offsets using index scaling via shifts (`slli t0, s1, 2` for $i \times 4$) combined with base addresses (`add t0, t0, s0`)[cite: 1].
+  * **Word Manipulation (lw / sw):** Performed in-place iterative modification of integer array elements in data memory using load-word and store-word instructions[cite: 1].
+  * **Byte-Level String Access (lbu):** Implemented null-terminated ASCII string length counting using unsigned byte loads (`lbu`) with 1-byte incremental stride[cite: 1].
+  * **Memory Endianness:** Analyzed byte order storage under Little-Endian alignment in simulated memory spaces (`.data` segment).
+</details>
+
 ---
 
 ## 4. Microarchitecture
