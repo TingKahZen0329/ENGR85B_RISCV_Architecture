@@ -319,6 +319,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Calling Convention Integrity:** Evaluated the operational boundary between Caller-saved temporary registers and Callee-saved preserved states (`s`-registers)[cite: 1].
 </details>
 
+<details>
+  <summary><strong>11_Stack: Stack Frame Allocation, Register Preservation, and Nested Function Calls</strong></summary>
+
+  Explores memory stack management, hardware stack pointer (`sp`) conventions, and register state preservation during nested execution.
+  * **Stack Frame Allocation & Deallocation:** Managed dynamic stack allocation (`addi sp, sp, -imm`) to create temporary activation records, adhering to the downwards-growing stack structure and ensuring zero pointer leakage upon epilogue restoration[cite: 1].
+  * **Preserved (Callee-Saved) Integrity:** Preserved saved registers (`s1`) and return address links (`ra`) to the stack via `sw`/`lw` pairs to prevent register clobbering across caller/callee boundaries[cite: 1].
+  * **Non-Leaf Function Hierarchy:** Constructed a multi-level execution tree where an intermediary routine (`func_F`) preserves state to invoke nested leaf routines (`calc_term`) across multiple evaluation phases[cite: 1].
+  * **Algebraic Evaluation Pipeline:** Evaluated $F(a, b) = (a + 1)^2 + (b - 2)^2$ through modular argument passing, intermediate caller-saved preservation, and algebraic accumulation[cite: 1].
+</details>
+
 ---
 
 ## 4. Microarchitecture
