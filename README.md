@@ -309,6 +309,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Memory Endianness:** Analyzed byte order storage under Little-Endian alignment in simulated memory spaces (`.data` segment).
 </details>
 
+<details>
+  <summary><strong>10_Function: Function Calling Conventions and Jump-and-Link Execution</strong></summary>
+
+  Demonstrates modular RISC-V function calls, ABI compliance, and control-flow restoration between Caller and Callee components.
+  * **Caller / Callee Protocol:** Configured argument preparation across standard argument registers (`a0`–`a3`) and captured single-scalar returned values through `a0`[cite: 1].
+  * **Control Flow Redirection (jal / jr ra):** Leveraged `jal` to simultaneously jump to a subroutine while linking return pointers ($PC + 4$) into the return address register (`ra`), concluding with `jr ra` to resume caller control[cite: 1].
+  * **Algebraic Evaluation via Functions:** Implemented a multi-parameter subroutine (`diffofsums`) calculating $(f + g) - (h + i)$ using dedicated argument and temporary registers[cite: 1].
+  * **Calling Convention Integrity:** Evaluated the operational boundary between Caller-saved temporary registers and Callee-saved preserved states (`s`-registers)[cite: 1].
+</details>
+
 ---
 
 ## 4. Microarchitecture
