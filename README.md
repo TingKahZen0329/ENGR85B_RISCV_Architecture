@@ -289,6 +289,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Iterative Loop Design:** Constructed an accumulation loop (`1 + 2 + ... + 5 = 15`) managed by counter increments and dynamic conditional branch boundaries.
 </details>
 
+<details>
+  <summary><strong>08_Conditional_Statements_And_Loops: Control Structures, Opposite Case Testing, and Loop Constructs</strong></summary>
+
+  Demonstrates the translation of high-level language control flow structures (if, if-else, while, for) into RISC-V assembly routines using label-directed branches.
+  * **Opposite Case Testing:** Applied inverse conditional branches (`bne` for high-level `==`, `beq` for high-level `!=`) to skip guarded code blocks efficiently[cite: 3].
+  * **If-Else Structuring:** Implemented mutually exclusive execution paths using conditional branching paired with unconditional jumps (`j`) to bypass else-clauses[cite: 3].
+  * **While Loops:** Designed condition-checked loops performing exponential value doubling via shift operations (`slli`)[cite: 2, 3].
+  * **For Loops with Boundary Comparison:** Constructed entry-checked iterative loops using `slt` (Set if Less Than) and zero-comparison branching (`beq t1, zero, done`) to compute geometric power-of-two series[cite: 3].
+</details>
+
 ---
 
 ## 4. Microarchitecture
