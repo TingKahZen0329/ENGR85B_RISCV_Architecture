@@ -339,6 +339,17 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **Triangular Summation Implementation:** Computed the recursive sum $S(n) = n + S(n - 1)$ down to the base condition ($n \le 1$) with zero stack leakage upon final caller resumption.
 </details>
 
+<details>
+  <summary><strong>13_Pseudoinstructions: Assembler Translation, Macro Expansions, and Real Hardware Mapping</strong></summary>
+
+  Analyzes the architectural distinction between synthetic pseudoinstructions and real underlying RISC-V hardware primitives through instruction disassembly in RARS.
+  * **Immediate Expansion Pipeline:** Evaluated the composition of 32-bit constant loads (`li`) translated into two-stage `lui` (upper 20 bits) and `addi` (lower 12 bits sign-extended) operations[cite: 2].
+  * **Register Copy and Bitwise Inversion:** Mapped synthetic instructions to base ALU primitives, resolving `mv` as zero-offset additions (`addi rd, rs, 0`) and `not` as bitwise-NOT equivalents via immediate XOR (`xori rd, rs, -1`)[cite: 2].
+  * **Long Jump & Link Decoding:** Dissected wide-range subroutine calls (`call`) into PC-relative address calculations using `auipc` combined with indexed register jumps via `jalr`[cite: 2].
+  * **Zero-Register Discard Semantics:** Verified branch and return conventions where unconditional jumps (`j`) and subroutine returns (`ret`) discard link addresses into the hardwired zero register (`jal x0` / `jalr x0`)[cite: 2].
+  * **No-Operation (NOP) Mechanics:** Implemented software pipeline stalls via architectural null operations (`addi zero, zero, 0`)[cite: 2].
+</details>
+
 ---
 
 ## 4. Microarchitecture
