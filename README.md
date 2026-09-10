@@ -350,6 +350,16 @@ This section focuses on the RISC-V 32-bit Instruction Set Architecture (RV32I)[c
   * **No-Operation (NOP) Mechanics:** Implemented software pipeline stalls via architectural null operations (`addi zero, zero, 0`)[cite: 2].
 </details>
 
+<details>
+<summary><strong>14_Signed_And_Unsigned: Signed vs. Unsigned Semantics, 64-bit Multiplication, and Overflow Detection</strong></summary>
+
+Explores signed and unsigned integer operations, sign/zero extension behaviors, and explicit overflow detection sequences on RISC-V in RARS.
+
+* **Branch & Load Extensions (`01_blt_bltu_lb_lbu.asm`):** Contrasted two's complement evaluation against raw magnitude comparison using `blt` and `bltu`. Verified memory load extensions by extracting byte literals via sign extension (`lb` -> `0xFFFFFF8F`) and zero extension (`lbu` -> `0x0000008F`).
+* **High-Order Multiplication & Unsigned Wrap-Around (`02_Overflow.asm`):** Demonstrated 64-bit product partitioning where the lower 32 bits remain identical (`mul`), while upper words bifurcate across two's complement sign (`mulh`) and unsigned magnitudes (`mulhu`). Implemented branch-based unsigned wrap-around detection via `bltu sum, rs1`.
+* **Hardware-Minimal Signed Overflow Detection (`03_Slti_Sltiu_Overflow_Detection.asm`):** Implemented RISC-V signed overflow logic (`slti` + `slt` + `bne`) to identify sign flips during same-sign addition. Verified the immediate sign-extension behavior in `sltiu` with negative literals (`-1` expanding to `0xFFFFFFFF`).
+</details>
+
 ---
 
 ## 4. Microarchitecture
