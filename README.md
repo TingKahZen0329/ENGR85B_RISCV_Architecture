@@ -360,6 +360,15 @@ Explores signed and unsigned integer operations, sign/zero extension behaviors, 
 * **Hardware-Minimal Signed Overflow Detection (`03_Slti_Sltiu_Overflow_Detection.asm`):** Implemented RISC-V signed overflow logic (`slti` + `slt` + `bne`) to identify sign flips during same-sign addition. Verified the immediate sign-extension behavior in `sltiu` with negative literals (`-1` expanding to `0xFFFFFFFF`).
 </details>
 
+<details>
+<summary><strong>15_Floating: Floating-Point Architecture, IEEE 754 Conversion, and Fused Multiply-Add</strong></summary>
+
+Demonstrates RISC-V floating-point extension (RVF) operations, dedicated floating register handling, integer-to-float conversions, and fused multiply-add workflows in RARS.
+
+* **Memory Load & Type Conversion (`01_Floating.asm`):** Loaded IEEE 754 single-precision floating literals using `flw` into dedicated floating registers (`ft0`–`ft2`). Handled cross-domain data conversion from a 32-bit signed integer literal to standard IEEE 754 float representation via `fcvt.s.w` (`3` -> `3.0`).
+* **Fused Multiply-Add & Memory Writeback (`01_Floating.asm`):** Executed single-precision addition via `fadd.s` and high-throughput fused multiply-add via R4-type instruction `fmadd.s` ($ft5 = ft0 \times ft1 + ft2 = 11.5$) with a single rounding step. Verified data writeback to memory (`fsw`) and confirmed raw IEEE 754 bit pattern storage (`0x41380000`).
+</details>
+
 ---
 
 ## 4. Microarchitecture
