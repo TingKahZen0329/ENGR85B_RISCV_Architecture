@@ -1,0 +1,46 @@
+$date
+	Fri Sep 11 18:14:32 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_instruction_memory $end
+$var wire 32 ! instr [31:0] $end
+$var reg 32 " addr [31:0] $end
+$scope module uut $end
+$var wire 32 # addr [31:0] $end
+$var wire 32 $ instr [31:0] $end
+$var integer 32 % i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b100000000000 %
+b10100000000000010010011 $
+b0 #
+b0 "
+b10100000000000010010011 !
+$end
+#10000
+b11111111110001001010001100000011 !
+b11111111110001001010001100000011 $
+b100 "
+b100 #
+#20000
+b100110000001110110011 !
+b100110000001110110011 $
+b1000 "
+b1000 #
+#30000
+b0 !
+b0 $
+b1100 "
+b1100 #
+#50000

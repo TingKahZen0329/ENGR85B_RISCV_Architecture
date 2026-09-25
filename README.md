@@ -372,4 +372,29 @@ Demonstrates RISC-V floating-point extension (RVF) operations, dedicated floatin
 ---
 
 ## 4. Microarchitecture
-*This section is currently under construction. It will feature datapath designs, control units, and pipelining implementations.*
+<details>
+<summary><strong>01_Single_Cycle_RISCV_Processor: Hardware Module Deep Dive & Datapath Integration</strong></summary>
+
+This project implements a complete 32-bit Single-Cycle RISC-V (RV32I) processor. In a single-cycle architecture, the entire instruction lifecycle—Fetch, Decode, Execute, Memory Access, and Write-Back—must complete entirely within a single clock cycle. Below is a detailed breakdown of the hardware modules comprising the core datapath and control logic:
+
+* **Top-Level Integration**
+  * **`riscv_single.v`**: The top-level circuit module. It instantiates all underlying sub-modules and routes them together, accurately reconstructing the single-cycle RV32I datapath. It also instantiates an independent `adder_32` to serve as the `PCTarget` adder, dedicated to calculating branch and jump addresses in parallel.
+
+* **Instruction Fetch & Program Counter (PC)**
+  * **`dff_pc.v`**: The Program Counter register. Designed as a D-type flip-flop with an active-low asynchronous reset, it latches the next instruction address (`pc_next`) on every clock rising edge (`posedge clk`) and outputs it as the current `pc`.
+  * **`pc_plus4.v`**: Pure combinational logic wrapping an `adder_32` instance. Its sole purpose is to continuously add 4 to the current `pc`, preparing the sequential next-instruction address (`PCPlus4`).
+  * **`instruction_memory.v`**: The Instruction Memory (Read-Only Memory). Featuring an 8KB capacity, it utilizes `$readmemh` to load compiled machine code (`program.hex`) during hardware initialization, asynchronously outputting the 32-bit instruction word (`instr`) corresponding to the input `addr`.
+
+* **Instruction Decode & Control Unit**
+  * **`controller.v`**: The brain of the processor. It parses the `opcode`, `funct3`, and `funct7` fields to generate precise control signals for the datapath multiplexers. It orchestrates register writes (`RegWrite`), memory writes (`MemWrite`), and evaluates the `Zero` flag from the ALU to determine PC routing (`PCSrc`).
+  * **`extend.v`**: The Immediate Extension unit. Since RISC-V scatters immediate bits to keep register source locations fixed, this module relies on pure wire rebinding to seamlessly reassemble I-, S-, B-, and J-type immediates and apply sign-extension, reconstructing the true 32-bit constant or offset.
+  * **`reg_file.v`**: The Register File. Contains 32 general-purpose 32-bit registers (`x0` to `x31`, with `x0` hardwired to 0). It supports dual-port asynchronous reads (`rd1`, `rd2`) to supply ALU operands instantly, and single-port synchronous writes (latching `wd3` on the clock's rising edge when `we3=1`).
+
+* **Execution Unit & Core Arithmetic**
+  * **`alu.v`**: The Arithmetic Logic Unit. Executes all core mathematical and logical operations, including addition, subtraction, bitwise AND/OR, and Set Less Than (SLT) via sign-bit inspection. It also evaluates branch equality by pulling the `Zero` flag high when a subtraction yields zero.
+  * **`adder_32.v` & `full_adder.v`**: The foundational math components. `full_adder.v` builds a 1-bit adder from primitive logic gates (XOR, AND, OR). `adder_32.v` utilizes a `generate` loop to chain 32 full adders together, forming a 32-bit Ripple-Carry Adder capable of two's complement subtraction, heavily utilized by the ALU, `PCPlus4`, and `PCTarget` units.
+
+* **Data Memory & Datapath Routing Multiplexers**
+  * **`data_memory.v`**: The Data Memory (RAM). Implements synchronous writes (latching `wd` on the clock edge when `we=1`) and asynchronous reads (instantly outputting the value at `addr` to `rd`). Primarily driven by `lw` and `sw` instructions.
+  * **`mux2.v` & `mux3.v`**: Parameterized multiplexers for datapath routing. `mux2` manages 2-to-1 selections, such as choosing the ALU's second operand (Register vs. Immediate) and the PC's next step (PC+4 vs. Target Address). The upgraded 3-to-1 multiplexer, `mux3`, sits at the very end of the datapath, selecting the final write-back `Result` from `ALUResult`, `ReadData` (memory), or `PCPlus4` (reserved for `jal` return addresses).
+</details>
