@@ -398,3 +398,28 @@ This project implements a complete 32-bit Single-Cycle RISC-V (RV32I) processor.
   * **`data_memory.v`**: The Data Memory (RAM). Implements synchronous writes (latching `wd` on the clock edge when `we=1`) and asynchronous reads (instantly outputting the value at `addr` to `rd`). Primarily driven by `lw` and `sw` instructions.
   * **`mux2.v` & `mux3.v`**: Parameterized multiplexers for datapath routing. `mux2` manages 2-to-1 selections, such as choosing the ALU's second operand (Register vs. Immediate) and the PC's next step (PC+4 vs. Target Address). The upgraded 3-to-1 multiplexer, `mux3`, sits at the very end of the datapath, selecting the final write-back `Result` from `ALUResult`, `ReadData` (memory), or `PCPlus4` (reserved for `jal` return addresses).
 </details>
+
+<details>
+<summary><strong>02_Multicycle_RISCV_Processor: Hardware Module Deep Dive & Datapath Integration</strong></summary>
+
+This project implements a complete 32-bit Multicycle RISC-V (RV32I) processor based on the Princeton (Von Neumann) architecture. Unlike a single-cycle design, execution is partitioned into discrete clock cycles (Fetch, Decode, Execute, Memory, and Write-Back), enabling resource time-sharing of expensive hardware units such as the ALU and unified memory to significantly optimize silicon area and clock frequency. Below is a detailed breakdown of the hardware modules comprising the hierarchical control logic and datapath:
+
+* **Top-Level Integration & System Architecture**
+  * **`top.v`**: The system top-level module representing the complete SoC environment. It integrates the processor core (`riscv_multicycle.v`) with the 8KB unified memory (`mem.v`), orchestrating instruction and data memory interactions over shared memory address and write-data buses.
+  * **`riscv_multicycle.v`**: The top-level CPU core encapsulating the control and data domains. It serves as the primary boundary layer, cleanly interconnecting the Control Unit (`controller.v`) and the Data Channel (`datapath.v`) via standardized internal control buses.
+
+* **Hierarchical Control Unit & State Sequencing**
+  * **`controller.v`**: The central supervisor of the processor. It integrates the finite state machine (`main_fsm.v`), the arithmetic decoder (`alu_decoder`), immediate format logic (`imm_src`), and gate-level branch arbitration (`pc_write = pc_update | (branch & zero)`), routing complete decoded control vectors to the datapath.
+  * **`main_fsm.v`**: The temporal sequencing engine. Structured as an 11-state Moore/Mealy FSM (S0–S10), it decodes the 7-bit `opcode` across clock cycles to orchestrate multicycle execution flows (e.g., 5 cycles for `lw`, 4 cycles for R-type/I-type/`jal`/`sw`, and 3 cycles for `beq`), driving write-enables and multiplexer selections.
+
+* **Datapath & Intermediate Pipeline Storage**
+  * **`datapath.v`**: The complete data channel implementing resource multiplexing. It instantiates the register file, arithmetic logic, sign-extension units, routing multiplexers, and inter-cycle pipeline registers to ensure hazard-free data preservation between clock cycles.
+  * **`flopenr.v` & `flopr.v`**: Synchronous D-flip-flop register primitives parameterized by bit-width with active-low asynchronous reset (`rst_n`). `flopenr` incorporates a clock-enable port used for conditional state latching (`PC`, `OldPC`, `Instr`), while `flopr` provides unconditional latching for intermediate pipeline buffers (`Data`, `A`, `B`, `ALUOut`).
+  * **`mux3.v`**: Parameterized 3-to-1 multiplexers deployed at critical routing nodes. It controls ALU source operand selection (`SrcA` selecting PC, OldPC, or Register A; `SrcB` selecting Register B, ImmExt, or constant 4) and the final Write-Back stage (`ResultSrc` selecting ALUOut, Data, or ALUResult).
+
+* **Execution, Register File & Memory System**
+  * **`alu.v`**: The single shared 32-bit Arithmetic Logic Unit. Time-shared across clock cycles to sequentially compute PC+4 (Fetch), branch targets (Decode), effective memory addresses (MemAdr), and data computations (Execute). It also drives the dynamic `Zero` flag for conditional branch evaluation.
+  * **`reg_file.v`**: 32x32-bit general-purpose register file (`x0` to `x31`, with `x0` tied to 0). Features dual-port asynchronous reads (`rd1`, `rd2`) feeding pipeline registers `A` and `B`, and single-port synchronous write-back (`wd3`) gated by `reg_write`.
+  * **`extend.v`**: Immediate sign-extension unit reassembling fragmented instruction fields into 32-bit sign-extended values for I-, S-, B-, and J-type instructions based on `imm_src`.
+  * **`mem.v`**: The 8KB unified byte-addressable SRAM memory model initialized via `$readmemh`. By sharing memory ports between instruction fetch (Fetch cycle via `PC`) and data load/store access (Memory cycle via `ALUOut`), it eliminates the need for physically separated instruction and data memories.
+</details>
